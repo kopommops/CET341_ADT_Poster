@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Speak. Don't Code. Executive Poster</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #F5F5F7;
+  --surface:   #FFFFFF;
+  --surface2:  #FAFAFA;
+  --border:    rgba(0,0,0,0.08);
+  --border2:   rgba(0,0,0,0.05);
+  --ink-1:     #1D1D1F;
+  --ink-2:     #3D3D3F;
+  --ink-3:     #6E6E73;
+  --ink-4:     #AEAEB2;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05);
+  --radius:    16px;
+  --radius-sm: 10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  color: var(--ink-1);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden; /* Fits laptop screen with no scrollbars */
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+/* ─── POSTER SHELL ─── */
+.poster {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── TOP PANEL (TITLE SECTION) ─── */
+.top-panel {
+  position: relative;
+  background: var(--ink-1);
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.top-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  filter: grayscale(100%);
+  z-index: 1;
+}
+
+.top-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.poster-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 4px;
+}
+
+.poster-title {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: #FFFFFF;
+}
+
+.poster-title em {
+  font-style: normal;
+  color: rgba(255,255,255,0.4);
+}
+
+.title-center {
+  flex: 1.5;
+  padding: 0 30px;
+  border-left: 1px solid rgba(255,255,255,0.15);
+  border-right: 1px solid rgba(255,255,255,0.15);
+  margin: 0 30px;
+}
+
+.poster-subtitle {
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.7);
+}
+
+.narrative-pull {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.9);
+  margin-top: 6px;
+}
+
+.title-right {
+  flex: 0.8;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.course-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-align: right;
+  max-width: 200px;
+  line-height: 1.4;
+}
+
+/* ─── HEADER ROW ─── */
+.header-row {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.header-meta {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.header-thesis {
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.header-thesis strong {
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.comparison-badge {
+  background: var(--ink-1);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+}
+
+/* ─── COLUMNS AREA ─── */
+.columns {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 15px 40px;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.col {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.col-header {
+  padding: 12px 18px 10px;
+  border-bottom: 1px solid var(--border2);
+  flex-shrink: 0;
+}
+
+.col-number {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-bottom: 2px;
+}
+
+.col-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--ink-1);
+  margin-bottom: 2px;
+}
+
+.col-sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-3);
+  line-height: 1.3;
+}
+
+.col-visual {
+  flex-shrink: 0;
+  height: 170px;
+  position: relative;
+  border-bottom: 1px solid var(--border2);
+}
+
+.col-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.col-visual-label {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  box-shadow: var(--shadow-sm);
+}
+
+.col-body {
+  padding: 12px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.body-lead {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.body-lead strong {
+  font-weight: 700;
+  color: var(--ink-1);
+}
+
+.insights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.insights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-3);
+  line-height: 1.3;
+}
+
+.insight-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink-4);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.metric-card {
+  margin-top: auto;
+  flex-shrink: 0;
+  padding: 12px 18px;
+  border-top: 1px solid var(--border2);
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.metric-numeral {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+  color: var(--ink-1);
+  flex-shrink: 0;
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metric-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-1);
+  line-height: 1.2;
+}
+
+.metric-source {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--ink-4);
+  line-height: 1.3;
+}
+
+/* ─── BOTTOM SECTION (VERDICT + COMPARISON) ─── */
+.bottom-section {
+  display: flex;
+  padding: 0 40px 15px 40px;
+  gap: 20px;
+  flex-shrink: 0;
+  align-items: stretch;
+}
+
+.verdict-block {
+  flex: 0 0 280px;
+  background: var(--ink-1);
+  border-radius: var(--radius-sm);
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.verdict-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 6px;
+}
+
+.verdict-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.4;
+}
+
+.comparison-strip {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.compare-item {
+  padding: 5px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.compare-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.compare-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-1);
+  letter-spacing: -0.5px;
+}
+
+.compare-desc {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--ink-3);
+  line-height: 1.2;
+}
+
+.compare-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+}
+
+/* ─── FOOTER ─── */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 10px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.footer-left {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ink-4);
+  letter-spacing: 0.5px;
+}
+
+.footer-center {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--ink-1);
+}
+
+.footer-refs {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--ink-4);
+  text-align: right;
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <div class="top-panel">
+    <img class="top-img" src="path/to/your/header-background.jpg" alt="Background Texture">
+    <div class="top-content">
+      <div class="title-left">
+        <div class="poster-eyebrow">Strategic Roadmap</div>
+        <div class="poster-title">Speak.<br><em>Don't</em><br>Code.</div>
+      </div>
+      
+      <div class="title-center">
+        <div class="poster-subtitle">From Fragile SQL to Graph Native Intelligence. A data infrastructure argument for decision makers.</div>
+        <div class="narrative-pull">"Don't just fix SQL, outgrow it."</div>
+      </div>
+
+      <div class="title-right">
+        <span class="course-tag">CET341 Advanced Database Technologies</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-row">
+    <span class="header-meta">Research Poster</span>
+    <span class="header-thesis">Two technologies define the transition: <strong>SQL KG Verifier</strong> protects legacy investments. <strong>Graph Native Cypher</strong> unlocks the future.</span>
+    <span class="comparison-badge">Comparative Analysis</span>
+  </div>
+
+  <div class="columns">
+
+    <div class="col">
+      <div class="col-header">
+        <div class="col-number">01 The Problem</div>
+        <div class="col-title">The SQL Bottleneck</div>
+        <div class="col-sub">Why LLMs break on relational databases at scale</div>
+      </div>
+      <div class="col-visual">
+        <img src="path/to/your/image-problem.jpg" alt="Legacy Architecture Visual">
+        <span class="col-visual-label">Legacy Architecture</span>
+      </div>
+      <div class="col-body">
+        <p class="body-lead">As enterprise schemas grow, <strong>LLMs hallucinate table names, fabricate joins, and produce broken queries.</strong> The rigid row and column model forces AI to guess at structural relationships it cannot see.</p>
+        <ul class="insights">
+          <li><span class="insight-dot"></span>Schema complexity scales faster than LLM comprehension</li>
+          <li><span class="insight-dot"></span>Natural language maps to relationships, not tables</li>
+          <li><span class="insight-dot"></span>Every failed query erodes trust in the entire BI pipeline</li>
+          <li><span class="insight-dot"></span>Technical debt compounds with every schema migration</li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <span class="metric-numeral">↓</span>
+        <div class="metric-info">
+          <span class="metric-title">Accuracy collapses as complexity scales</span>
+          <span class="metric-source">The core failure mode of Text to SQL in production</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-header">
+        <div class="col-number">02 The Bridge</div>
+        <div class="col-title">SQL KG Verifier</div>
+        <div class="col-sub">Knowledge Graph as a factual anchor for legacy systems</div>
+      </div>
+      <div class="col-visual">
+        <img src="path/to/your/image-bridge.jpg" alt="Verification Layer Visual">
+        <span class="col-visual-label">Verification Layer</span>
+      </div>
+      <div class="col-body">
+        <p class="body-lead">Wang et al. (2026) deploy a Knowledge Graph as a <strong>real time semantic guard.</strong> Every table name, column, and join is verified by the KG before execution eliminating hallucinations at source.</p>
+        <ul class="insights">
+          <li><span class="insight-dot"></span><strong>Protects SQL investment</strong> No migration required</li>
+          <li><span class="insight-dot"></span>KG acts as an always on schema oracle for the LLM</li>
+          <li><span class="insight-dot"></span>Intercepts malformed queries before production</li>
+          <li><span class="insight-dot"></span>Immediate accuracy uplift over baseline Text to SQL</li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <span class="metric-numeral">77.2%</span>
+        <div class="metric-info">
+          <span class="metric-title">Execution Accuracy</span>
+          <span class="metric-source">Wang et al. 2026 · Spider Benchmark · SQL KG Verifier</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="col-header">
+        <div class="col-number">03 The Destination</div>
+        <div class="col-title">Graph Native Cypher</div>
+        <div class="col-sub">Aligning database architecture with human thought</div>
+      </div>
+      <div class="col-visual">
+        <img src="path/to/your/image-destination.jpg" alt="Graph Native Intelligence Visual">
+        <span class="col-visual-label">Graph Native Intelligence</span>
+      </div>
+      <div class="col-body">
+        <p class="body-lead">Hornsteiner (2024) demonstrates that real world data <strong>is a network, not a table.</strong> Querying Neo4j via Cypher, the LLM operates in a structure mirroring human cognition relationships are first class.</p>
+        <ul class="insights">
+          <li><span class="insight-dot"></span><strong>No joins, no schema guesswork</strong> Traversals replace queries</li>
+          <li><span class="insight-dot"></span>LLM selects the correct database with perfect precision</li>
+          <li><span class="insight-dot"></span>Scales elegantly as data complexity grows</li>
+          <li><span class="insight-dot"></span>Future proof architecture maps to LLM knowledge models</li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <span class="metric-numeral">96.4%</span>
+        <div class="metric-info">
+          <span class="metric-title">Database Selection Accuracy</span>
+          <span class="metric-source">Hornsteiner 2024 · Text to Cypher · Neo4j</span>
+        </div>
+      </div>
+    </div>
+
+  </div><div class="bottom-section">
+    <div class="verdict-block">
+      <div class="verdict-label">The Verdict</div>
+      <div class="verdict-text">Invest in Graph Native infrastructure. Reduce technical debt. Empower your teams to speak, not query.</div>
+    </div>
+    
+    <div class="comparison-strip">
+      <div class="compare-item">
+        <span class="compare-label">Architecture</span>
+        <span class="compare-val">Relational SQL</span>
+        <span class="compare-desc">Rows, columns, rigid schema</span>
+      </div>
+      <div class="compare-divider"></div>
+      <div class="compare-item">
+        <span class="compare-label">Bridge Accuracy</span>
+        <span class="compare-val">77.2% to 96.4%</span>
+        <span class="compare-desc">SQL KG Verifier to Graph Native Cypher</span>
+      </div>
+      <div class="compare-divider"></div>
+      <div class="compare-item">
+        <span class="compare-label">LLM Failure Mode</span>
+        <span class="compare-val">Hallucinated Joins</span>
+        <span class="compare-desc">Fabricated schema references at scale</span>
+      </div>
+      <div class="compare-divider"></div>
+      <div class="compare-item">
+        <span class="compare-label">Graph Advantage</span>
+        <span class="compare-val">Relationships First</span>
+        <span class="compare-desc">Traversal mirrors language intent</span>
+      </div>
+      <div class="compare-divider"></div>
+      <div class="compare-item">
+        <span class="compare-label">Strategic Outcome</span>
+        <span class="compare-val">Reduce Tech Debt</span>
+        <span class="compare-desc">Pivot SQL teams to Cypher</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-left">CET341 Advanced Database Technologies</span>
+    <span class="footer-center">Outgrow SQL. Go Graph Native.</span>
+    <span class="footer-refs">Wang et al. (2026) · SQL KG Verifier, Spider Benchmark &nbsp;·&nbsp; Hornsteiner (2024) · Text to Cypher, Neo4j</span>
+  </div>
+
+</div></body>
+</html>
