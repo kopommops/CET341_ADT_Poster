@@ -30,12 +30,11 @@ html, body {
   background: var(--bg);
   color: var(--ink-1);
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: hidden; /* Fits laptop screen with no scrollbars */
+  overflow: hidden;
   print-color-adjust: exact;
   -webkit-print-color-adjust: exact;
 }
 
-/* ─── POSTER SHELL ─── */
 .poster {
   width: 100%;
   height: 100%;
@@ -43,7 +42,6 @@ html, body {
   flex-direction: column;
 }
 
-/* ─── TOP PANEL (TITLE SECTION) ─── */
 .top-panel {
   position: relative;
   background: var(--ink-1);
@@ -142,7 +140,6 @@ html, body {
   line-height: 1.4;
 }
 
-/* ─── HEADER ROW ─── */
 .header-row {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -184,7 +181,6 @@ html, body {
   border-radius: 100px;
 }
 
-/* ─── COLUMNS AREA ─── */
 .columns {
   flex: 1 1 auto;
   display: grid;
@@ -354,7 +350,6 @@ html, body {
   line-height: 1.3;
 }
 
-/* ─── BOTTOM SECTION (VERDICT + COMPARISON) ─── */
 .bottom-section {
   display: flex;
   padding: 0 40px 15px 40px;
@@ -474,10 +469,9 @@ html, body {
 <div class="poster">
 
   <div class="top-panel">
-    <img class="top-img" src="path/to/your/header-background.jpg" alt="Background Texture">
+    <img class="top-img" src="images/split-screen.jpg" alt="Background Texture">
     <div class="top-content">
       <div class="title-left">
-        <div class="poster-eyebrow">Strategic Roadmap</div>
         <div class="poster-title">Speak.<br><em>Don't</em><br>Code.</div>
       </div>
       
@@ -487,7 +481,8 @@ html, body {
       </div>
 
       <div class="title-right">
-        <span class="course-tag">CET341 Advanced Database Technologies</span>
+        <span class="course-tag">CET341 Advanced Database Technologies - 2026</span>
+        <span class="course-tag">Mmopiemang Mmopiemang</span>
       </div>
     </div>
   </div>
@@ -507,7 +502,7 @@ html, body {
         <div class="col-sub">Why LLMs break on relational databases at scale</div>
       </div>
       <div class="col-visual">
-        <img src="path/to/your/image-problem.jpg" alt="Legacy Architecture Visual">
+        <img src="images/grey_grid.jpg" alt="Legacy Architecture Visual">
         <span class="col-visual-label">Legacy Architecture</span>
       </div>
       <div class="col-body">
@@ -535,7 +530,7 @@ html, body {
         <div class="col-sub">Knowledge Graph as a factual anchor for legacy systems</div>
       </div>
       <div class="col-visual">
-        <img src="path/to/your/image-bridge.jpg" alt="Verification Layer Visual">
+        <img src="images/blue_shield.jpg" alt="Verification Layer Visual">
         <span class="col-visual-label">Verification Layer</span>
       </div>
       <div class="col-body">
@@ -563,7 +558,7 @@ html, body {
         <div class="col-sub">Aligning database architecture with human thought</div>
       </div>
       <div class="col-visual">
-        <img src="path/to/your/image-destination.jpg" alt="Graph Native Intelligence Visual">
+        <img src="images/violet_network.jpg" alt="Graph Native Intelligence Visual">
         <span class="col-visual-label">Graph Native Intelligence</span>
       </div>
       <div class="col-body">
