@@ -52,17 +52,6 @@ html, body {
   overflow: hidden;
 }
 
-.top-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
-  filter: grayscale(100%);
-  z-index: 1;
-}
-
 .top-content {
   position: relative;
   z-index: 2;
@@ -76,15 +65,6 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.poster-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 4px;
 }
 
 .poster-title {
@@ -232,18 +212,22 @@ html, body {
   line-height: 1.3;
 }
 
+/* SVG Visual area — replaces the photo */
 .col-visual {
   flex-shrink: 0;
   height: 170px;
   position: relative;
   border-bottom: 1px solid var(--border2);
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.col-visual img {
+.col-visual svg {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
   display: block;
 }
 
@@ -251,7 +235,7 @@ html, body {
   position: absolute;
   bottom: 10px;
   left: 15px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(8px);
   border-radius: 6px;
   padding: 4px 10px;
@@ -261,6 +245,7 @@ html, body {
   text-transform: uppercase;
   color: var(--ink-2);
   box-shadow: var(--shadow-sm);
+  z-index: 2;
 }
 
 .col-body {
@@ -432,7 +417,6 @@ html, body {
   background: var(--border);
 }
 
-/* ─── FOOTER ─── */
 .footer {
   background: var(--surface);
   border-top: 1px solid var(--border);
@@ -469,17 +453,14 @@ html, body {
 <div class="poster">
 
   <div class="top-panel">
-    <img class="top-img" src="images/split-screen.jpg" alt="Background Texture">
     <div class="top-content">
       <div class="title-left">
         <div class="poster-title">Speak.<br><em>Don't</em><br>Code.</div>
       </div>
-      
       <div class="title-center">
         <div class="poster-subtitle">From Fragile SQL to Graph Native Intelligence. A data infrastructure argument for decision makers.</div>
         <div class="narrative-pull">"Don't just fix SQL, outgrow it."</div>
       </div>
-
       <div class="title-right">
         <span class="course-tag">Mmopiemang Mmopiemang</span>
       </div>
@@ -494,16 +475,76 @@ html, body {
 
   <div class="columns">
 
+    <!-- COL 01: THE PROBLEM — SQL Bottleneck diagram -->
     <div class="col">
       <div class="col-header">
         <div class="col-number">01 The Problem</div>
         <div class="col-title">The SQL Bottleneck</div>
         <div class="col-sub">Why LLMs break on relational databases at scale</div>
       </div>
+
       <div class="col-visual">
-        <img src="images/grey_grid.jpg" alt="Legacy Architecture Visual">
+        <!-- Inline SVG: Legacy Relational Architecture diagram, restyled -->
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" style="font-family:'Plus Jakarta Sans',Helvetica,sans-serif;">
+          <!-- Background subtle grid -->
+          <rect width="480" height="200" fill="#FAFAFA"/>
+          <defs>
+            <marker id="arr1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#AEAEB2"/>
+            </marker>
+            <marker id="arr-dash" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#D9D9D9"/>
+            </marker>
+          </defs>
+
+          <!-- User Query (top hexagon) -->
+          <polygon points="240,10 295,32 295,76 240,98 185,76 185,32" fill="#E8E8EA" stroke="#3D3D3F" stroke-width="1.2"/>
+          <text x="240" y="47" text-anchor="middle" font-size="8" font-weight="700" fill="#1D1D1F" letter-spacing="0.5">USER QUERY</text>
+          <text x="240" y="59" text-anchor="middle" font-size="7" fill="#6E6E73">'Analyze Churn Risk'</text>
+          <text x="240" y="70" text-anchor="middle" font-size="7" fill="#6E6E73">— LLM identifies 'VIP'</text>
+
+          <!-- Arrow down to T1 -->
+          <line x1="240" y1="98" x2="240" y2="116" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr1)"/>
+
+          <!-- T1: USERS -->
+          <rect x="175" y="116" width="130" height="28" rx="4" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1"/>
+          <text x="240" y="127" text-anchor="middle" font-size="8" font-weight="700" fill="#1D1D1F">Table: USERS</text>
+          <text x="240" y="138" text-anchor="middle" font-size="7" fill="#6E6E73">[PK: UID, Tier, Name]</text>
+
+          <!-- JOIN label -->
+          <text x="267" y="159" font-size="7" fill="#AEAEB2" font-style="italic">JOIN (1:N)</text>
+          <line x1="240" y1="144" x2="240" y2="156" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr1)"/>
+
+          <!-- T2: TRANS -->
+          <rect x="175" y="156" width="130" height="28" rx="4" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1"/>
+          <text x="240" y="167" text-anchor="middle" font-size="8" font-weight="700" fill="#1D1D1F">Table: TRANS</text>
+          <text x="240" y="178" text-anchor="middle" font-size="7" fill="#6E6E73">[PK: TID, FK: UID, Total]</text>
+
+          <!-- Dashed line to Hallucination box -->
+          <line x1="305" y1="170" x2="355" y2="148" stroke="#D9D9D9" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-dash)"/>
+
+          <!-- Hallucination warning box -->
+          <rect x="355" y="118" width="118" height="54" rx="5" fill="#F0F0F0" stroke="#AEAEB2" stroke-width="1"/>
+          <text x="414" y="132" text-anchor="middle" font-size="7.5" font-weight="700" fill="#1D1D1F">HALLUCINATION</text>
+          <text x="414" y="143" text-anchor="middle" font-size="6.5" fill="#6E6E73">Nested Join Depth &gt;</text>
+          <text x="414" y="153" text-anchor="middle" font-size="6.5" fill="#6E6E73">Context Window</text>
+          <text x="414" y="163" text-anchor="middle" font-size="6.5" font-weight="700" fill="#3D3D3F">22.8% Accuracy Decline</text>
+
+          <!-- Cluster boundary label -->
+          <rect x="6" y="108" width="163" height="86" rx="4" fill="none" stroke="#AEAEB2" stroke-width="0.8" stroke-dasharray="4,2"/>
+          <text x="87" y="122" text-anchor="middle" font-size="6.5" fill="#AEAEB2" letter-spacing="0.5">LEGACY RELATIONAL ARCHITECTURE</text>
+          <!-- Additional tables inside cluster -->
+          <rect x="14" y="128" width="94" height="22" rx="3" fill="#F2F2F2" stroke="#D9D9D9" stroke-width="0.8"/>
+          <text x="61" y="137" text-anchor="middle" font-size="7" font-weight="600" fill="#1D1D1F">Table: LINE_ITEMS</text>
+          <text x="61" y="147" text-anchor="middle" font-size="6.5" fill="#AEAEB2">[PK: LID, FK: TID, FK: PID]</text>
+          <rect x="14" y="158" width="94" height="22" rx="3" fill="#F2F2F2" stroke="#D9D9D9" stroke-width="0.8"/>
+          <text x="61" y="167" text-anchor="middle" font-size="7" font-weight="600" fill="#1D1D1F">Table: PROD_CAT</text>
+          <text x="61" y="177" text-anchor="middle" font-size="6.5" fill="#AEAEB2">[PK: CID, Category_Name]</text>
+          <line x1="61" y1="150" x2="61" y2="157" stroke="#D9D9D9" stroke-width="0.8" stroke-dasharray="2,2"/>
+        </svg>
         <span class="col-visual-label">Legacy Architecture</span>
       </div>
+
       <div class="col-body">
         <p class="body-lead">As enterprise schemas grow, <strong>LLMs hallucinate table names, fabricate joins, and produce broken queries.</strong> The rigid row and column model forces AI to guess at structural relationships it cannot see.</p>
         <ul class="insights">
@@ -522,16 +563,82 @@ html, body {
       </div>
     </div>
 
+    <!-- COL 02: THE BRIDGE — SQL KG Verifier diagram -->
     <div class="col">
       <div class="col-header">
         <div class="col-number">02 The Bridge</div>
         <div class="col-title">SQL KG Verifier</div>
         <div class="col-sub">Knowledge Graph as a factual anchor for legacy systems</div>
       </div>
+
       <div class="col-visual">
-        <img src="images/blue_shield.jpg" alt="Verification Layer Visual">
+        <!-- Inline SVG: SQL-KG-Verifier module diagram, restyled -->
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" style="font-family:'Plus Jakarta Sans',Helvetica,sans-serif;">
+          <rect width="480" height="200" fill="#FAFAFA"/>
+          <defs>
+            <marker id="arr2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#AEAEB2"/>
+            </marker>
+            <marker id="arr2b" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#005a9c"/>
+            </marker>
+            <marker id="arr2c" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#6E6E73"/>
+            </marker>
+          </defs>
+
+          <!-- Module boundary -->
+          <rect x="82" y="8" width="310" height="184" rx="6" fill="none" stroke="#005a9c" stroke-width="1.2" stroke-dasharray="5,2"/>
+          <text x="237" y="22" text-anchor="middle" font-size="7" font-weight="700" fill="#005a9c" letter-spacing="0.8">SQL-KG-VERIFIER MODULE</text>
+
+          <!-- Draft SQL (input, left) -->
+          <rect x="8" y="88" width="70" height="36" rx="4" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1"/>
+          <text x="43" y="102" text-anchor="middle" font-size="7.5" font-weight="700" fill="#1D1D1F">DRAFT SQL</text>
+          <text x="43" y="113" text-anchor="middle" font-size="7" fill="#6E6E73">(Unverified)</text>
+
+          <!-- Arrow: Draft → AST -->
+          <line x1="78" y1="106" x2="110" y2="106" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr2)"/>
+
+          <!-- AST Parser -->
+          <ellipse cx="155" cy="106" rx="44" ry="22" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1"/>
+          <text x="155" y="103" text-anchor="middle" font-size="7.5" font-weight="700" fill="#1D1D1F">AST Parser</text>
+          <text x="155" y="114" text-anchor="middle" font-size="7" fill="#6E6E73">(Logic Extract)</text>
+
+          <!-- Arrow: AST → Validation -->
+          <line x1="199" y1="106" x2="248" y2="106" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr2)"/>
+
+          <!-- Schema Alignment diamond -->
+          <polygon points="295,78 370,106 295,134 220,106" fill="#FFFFFF" stroke="#AEAEB2" stroke-width="1.2"/>
+          <text x="295" y="103" text-anchor="middle" font-size="7" font-weight="700" fill="#1D1D1F">SCHEMA</text>
+          <text x="295" y="114" text-anchor="middle" font-size="7" fill="#6E6E73">ALIGNMENT</text>
+
+          <!-- KG (cylinder, bottom left) -->
+          <ellipse cx="155" cy="162" rx="42" ry="10" fill="#E1F5FE" stroke="#AEAEB2" stroke-width="1"/>
+          <rect x="113" y="152" width="84" height="20" fill="#E1F5FE" stroke="none"/>
+          <ellipse cx="155" cy="152" rx="42" ry="10" fill="#E1F5FE" stroke="#AEAEB2" stroke-width="1"/>
+          <text x="155" y="158" text-anchor="middle" font-size="7.5" font-weight="700" fill="#1D1D1F">KNOWLEDGE GRAPH</text>
+          <text x="155" y="170" text-anchor="middle" font-size="7" fill="#6E6E73">(The Factual Anchor)</text>
+
+          <!-- Arrow: KG → Schema Alignment -->
+          <line x1="197" y1="152" x2="242" y2="118" stroke="#005a9c" stroke-width="1.2" marker-end="url(#arr2b)"/>
+          <text x="222" y="144" text-anchor="middle" font-size="6.5" fill="#005a9c" font-style="italic">Relational Mapping</text>
+
+          <!-- Feedback loop (dashed) -->
+          <path d="M220,118 Q175,148 155,142" fill="none" stroke="#6E6E73" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr2c)"/>
+          <text x="170" y="136" text-anchor="middle" font-size="6" fill="#AEAEB2" font-style="italic">Schema Correction</text>
+
+          <!-- Arrow: Schema → Verified -->
+          <line x1="370" y1="106" x2="400" y2="106" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr2)"/>
+          <text x="385" y="101" text-anchor="middle" font-size="6.5" fill="#6E6E73">Pass</text>
+
+          <!-- Verified output (right) -->
+          <rect x="400" y="88" width="74" height="36" rx="4" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="1.5"/>
+          <text x="437" y="102" text-anchor="middle" font-size="7" font-weight="700" fill="#1D1D1F">VERIFIED</text>
+          <text x="437" y="113" text-anchor="middle" font-size="7" fill="#1D1D1F">EXECUTABLE</text>
+        </svg>
         <span class="col-visual-label">Verification Layer</span>
       </div>
+
       <div class="col-body">
         <p class="body-lead">Wang et al. (2026) deploy a Knowledge Graph as a <strong>real time semantic guard.</strong> Every table name, column, and join is verified by the KG before execution eliminating hallucinations at source.</p>
         <ul class="insights">
@@ -550,16 +657,81 @@ html, body {
       </div>
     </div>
 
+    <!-- COL 03: THE DESTINATION — Graph Native Cypher diagram -->
     <div class="col">
       <div class="col-header">
         <div class="col-number">03 The Destination</div>
         <div class="col-title">Graph Native Cypher</div>
         <div class="col-sub">Aligning database architecture with human thought</div>
       </div>
+
       <div class="col-visual">
-        <img src="images/violet_network.jpg" alt="Graph Native Intelligence Visual">
+        <!-- Inline SVG: Graph Native diagram, restyled -->
+        <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" style="font-family:'Plus Jakarta Sans',Helvetica,sans-serif;">
+          <rect width="480" height="200" fill="#FAFAFA"/>
+          <defs>
+            <marker id="arr3" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#AEAEB2"/>
+            </marker>
+            <marker id="arr3b" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+              <polygon points="0 0, 7 3.5, 0 7" fill="#AEAEB2"/>
+            </marker>
+          </defs>
+
+          <!-- Person node (top) -->
+          <ellipse cx="200" cy="36" rx="38" ry="28" fill="#E1F5FE" stroke="#AEAEB2" stroke-width="1.2"/>
+          <text x="200" y="33" text-anchor="middle" font-size="9" font-weight="700" fill="#1D1D1F">Person</text>
+          <text x="200" y="45" text-anchor="middle" font-size="7" fill="#6E6E73">:Customer</text>
+
+          <!-- Order node (mid-left) -->
+          <ellipse cx="120" cy="110" rx="34" ry="24" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1.2"/>
+          <text x="120" y="107" text-anchor="middle" font-size="9" font-weight="700" fill="#1D1D1F">Order</text>
+          <text x="120" y="119" text-anchor="middle" font-size="7" fill="#6E6E73">:Transaction</text>
+
+          <!-- PLACED edge -->
+          <line x1="173" y1="58" x2="142" y2="89" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr3)"/>
+          <text x="148" y="73" text-anchor="middle" font-size="7" font-weight="600" fill="#3D3D3F">PLACED</text>
+
+          <!-- Product node (mid-right) -->
+          <ellipse cx="200" cy="130" rx="36" ry="26" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1.2"/>
+          <text x="200" y="127" text-anchor="middle" font-size="9" font-weight="700" fill="#1D1D1F">Product</text>
+          <text x="200" y="139" text-anchor="middle" font-size="7" fill="#6E6E73">:Item</text>
+
+          <!-- CONTAINS edge -->
+          <line x1="145" y1="122" x2="168" y2="122" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr3)"/>
+          <text x="152" y="118" text-anchor="middle" font-size="6.5" font-weight="600" fill="#3D3D3F">CONTAINS</text>
+
+          <!-- Category node (bottom-left) -->
+          <ellipse cx="78" cy="172" rx="40" ry="22" fill="#F2F2F2" stroke="#AEAEB2" stroke-width="1.2"/>
+          <text x="78" y="169" text-anchor="middle" font-size="9" font-weight="700" fill="#1D1D1F">Category</text>
+          <text x="78" y="181" text-anchor="middle" font-size="7" fill="#6E6E73">:Genre</text>
+
+          <!-- BELONGS_TO edge -->
+          <line x1="164" y1="148" x2="112" y2="156" stroke="#AEAEB2" stroke-width="1.2" marker-end="url(#arr3)"/>
+          <text x="133" y="150" text-anchor="middle" font-size="6" fill="#6E6E73" font-style="italic">BELONGS_TO</text>
+
+          <!-- Cypher code block -->
+          <rect x="268" y="18" width="204" height="88" rx="5" fill="#F9F9F9" stroke="#D9D9D9" stroke-width="1"/>
+          <text x="278" y="34" font-size="7" font-weight="700" fill="#005a9c" letter-spacing="0.5">CYPHER ALIGNMENT:</text>
+          <text x="278" y="48" font-size="7.5" fill="#005a9c" font-family="'Courier New',monospace">MATCH (p)-[:PLACED]-&gt;(o)</text>
+          <text x="278" y="61" font-size="7.5" fill="#005a9c" font-family="'Courier New',monospace">-[:CONTAINS]-&gt;(pr)</text>
+          <text x="278" y="74" font-size="7.5" fill="#005a9c" font-family="'Courier New',monospace">WHERE p.value &gt; 5000</text>
+          <text x="278" y="87" font-size="7.5" fill="#005a9c" font-family="'Courier New',monospace">RETURN pr.name</text>
+          <text x="278" y="100" font-size="6.5" fill="#AEAEB2" font-style="italic">No joins. Traversal mirrors intent.</text>
+
+          <!-- Dashed lines from nodes to cypher box -->
+          <line x1="238" y1="45" x2="268" y2="55" stroke="#D9D9D9" stroke-width="0.8" stroke-dasharray="3,3"/>
+          <line x1="236" y1="128" x2="268" y2="80" stroke="#D9D9D9" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+          <!-- Accuracy callout -->
+          <rect x="268" y="130" width="204" height="52" rx="5" fill="#1D1D1F"/>
+          <text x="370" y="150" text-anchor="middle" font-size="8.5" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">96.4% DB Selection Accuracy</text>
+          <text x="370" y="164" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.5)">LLM routes to correct database</text>
+          <text x="370" y="175" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.5)">with perfect precision — Hornsteiner 2024</text>
+        </svg>
         <span class="col-visual-label">Graph Native Intelligence</span>
       </div>
+
       <div class="col-body">
         <p class="body-lead">Hornsteiner (2024) demonstrates that real world data <strong>is a network, not a table.</strong> Querying Neo4j via Cypher, the LLM operates in a structure mirroring human cognition relationships are first class.</p>
         <ul class="insights">
@@ -578,7 +750,9 @@ html, body {
       </div>
     </div>
 
-  </div><div class="bottom-section">
+  </div>
+
+  <div class="bottom-section">
     <div class="verdict-block">
       <div class="verdict-label">The Verdict</div>
       <div class="verdict-text">Invest in Graph Native infrastructure. Reduce technical debt. Empower your teams to speak, not query.</div>
@@ -623,5 +797,6 @@ html, body {
     <span class="footer-refs">Wang et al. (2026) · SQL KG Verifier, Spider Benchmark &nbsp;·&nbsp; Hornsteiner (2024) · Text to Cypher, Neo4j</span>
   </div>
 
-</div></body>
+</div>
+</body>
 </html>
